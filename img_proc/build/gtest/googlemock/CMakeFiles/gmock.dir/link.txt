@@ -1,0 +1,1 @@
+/usr/bin/c++ -fPIC -g -shared -Wl,-soname,libgmockd.so -o ../lib/libgmockd.so "CMakeFiles/gmock.dir/src/gmock-all.cc.o"  -Wl,-rpath,/home/umelab-pgi5g/underactuated_hand/src/img_proc/build/gtest/lib ../lib/libgtestd.so -lpthread

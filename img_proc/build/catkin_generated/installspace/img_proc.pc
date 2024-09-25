@@ -1,0 +1,8 @@
+prefix=/usr/local
+
+Name: img_proc
+Description: Description of img_proc
+Version: 0.0.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: 
