@@ -26,3 +26,12 @@ dobot_control_sub.cppでトピック受信およびアームとのサービス�
 
 ### config
 *param.yaml*では，閾値の調整が可能である．毎回buildしなくても，yamlファイルの数字を書き換えるだけで値が更新される
+
+## 変数名の名前付け方ルール
+oが小文字，Oが大文字を表す場合，下記の通りにする
+
+・ファイル名: ooo_ooo.cpp  
+・クラス名: OooOoo  
+・関数名: ooooOooo  
+・ローカル変数: ooo_ooo  
+・グローバル変数: ooo_ooo_  
