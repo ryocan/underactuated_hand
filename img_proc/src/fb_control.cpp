@@ -19,7 +19,29 @@ void FbControl::intCb(const std_msgs::Int32::ConstPtr& msg)
 **************************************************************/
 bool FbControl::getYamlParam()
 {
-    return true;
+	// dynamixel servo motor
+    nh.getParam("fb_control_launch/DYNAMIXEL_GOAL_VELOCITY_", DYNAMIXEL_GOAL_VELOCITY_);
+
+	// hsv param: hand
+    nh.getParam("fb_control_launch/H_MIN_HAND_", H_MIN_HAND_);
+    nh.getParam("fb_control_launch/H_MAX_HAND_", H_MAX_HAND_);
+    nh.getParam("fb_control_launch/S_MIN_HAND_", S_MIN_HAND_);
+    nh.getParam("fb_control_launch/S_MAX_HAND_", S_MAX_HAND_);
+    nh.getParam("fb_control_launch/V_MIN_HAND_", V_MIN_HAND_);
+    nh.getParam("fb_control_launch/V_MAX_HAND_", V_MAX_HAND_);
+
+	// dobot current position
+	nh.getParam("fb_control_launch/DOBOT_X_", DOBOT_X_);
+	nh.getParam("fb_control_launch/DOBOT_Y_", DOBOT_Y_);
+	nh.getParam("fb_control_launch/DOBOT_Z_", DOBOT_Z_);
+	nh.getParam("fb_control_launch/DOBOT_R_", DOBOT_R_);
+
+	// thlesholds
+	nh.getParam("fb_control_launch/DEFORMATION_TH_", DEFORMATION_TH_);
+	nh.getParam("fb_control_launch/OCCLUSION_TH_", OCCLUSION_TH_);
+
+
+	return true;
 }
 
 /*************************************************************
@@ -42,9 +64,10 @@ bool FbControl::exec()
 				// dobot bringup
 				dobotEnableCommandMsg();
 				sleep(1);
+
 				dobotPayloadCommandMsg(500, 200);
 				dobotSpeedCommandMsg(10); //10
-				dobotMoveCommandMsg(327.0, -1.93, -22.0, 250.0);
+				dobotMoveCommandMsg(DOBOT_X_, DOBOT_Y_, DOBOT_Z_, DOBOT_R_);
 				sleep(1);
 
 				// get image for object detection only once
@@ -62,8 +85,8 @@ bool FbControl::exec()
 					dynamixelCommandMsg("", 2, "Torque_Enable", 1);
 
 					// set goal velocity
-					dynamixelCommandMsg("", 1, "Goal_Velocity", 10);
-					dynamixelCommandMsg("", 2, "Goal_Velocity", 10);
+					dynamixelCommandMsg("", 1, "Goal_Velocity", DYNAMIXEL_GOAL_VELOCITY_);
+					dynamixelCommandMsg("", 2, "Goal_Velocity", DYNAMIXEL_GOAL_VELOCITY_);
 
 					flag_entire_process_ = 2;
 				}
@@ -94,13 +117,14 @@ bool FbControl::exec()
 				arm_traj_point_.clear();
 				for(int i = 0; i < 5; i++)
 				{
-					arm_traj_point_.push_back(cv::Vec4f(327.0, -1.93, 5.0, 250.0));
-					arm_traj_point_.push_back(cv::Vec4f(297.0, -1.93, 5.0, 250.0));
-					arm_traj_point_.push_back(cv::Vec4f(357.0, -1.93, 5.0, 250.0));
-					arm_traj_point_.push_back(cv::Vec4f(327.0, -1.93, 5.0, 250.0));
-					arm_traj_point_.push_back(cv::Vec4f(327.0, -1.93, 27.0, 250.0));
+					arm_traj_point_.push_back(cv::Vec4f(DOBOT_X_, DOBOT_Y_, DOBOT_Z_ + 15.0, DOBOT_R_));
+					arm_traj_point_.push_back(cv::Vec4f(DOBOT_X_ - 30.0, DOBOT_Y_, DOBOT_Z_ + 15.0, DOBOT_R_));
+					arm_traj_point_.push_back(cv::Vec4f(DOBOT_X_ + 30.0, DOBOT_Y_, DOBOT_Z_ + 15.0, DOBOT_R_));
+					arm_traj_point_.push_back(cv::Vec4f(DOBOT_X_, DOBOT_Y_, DOBOT_Z_ + 15.0, DOBOT_R_));
+					arm_traj_point_.push_back(cv::Vec4f(DOBOT_X_, DOBOT_Y_, DOBOT_Z_ + 30.0, DOBOT_R_));
 				}
-				arm_traj_point_.push_back(cv::Vec4f(327.0, -1.93, -22.0, 250.0));
+				arm_traj_point_.push_back(cv::Vec4f(DOBOT_X_, DOBOT_Y_, DOBOT_Z_, DOBOT_R_));
+				ROS_INFO("Dobot Position Published");
 				flag_entire_process_ = 5;
 				break;
 			

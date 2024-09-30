@@ -42,6 +42,7 @@ class FbControl : public CommonProc
 
 		// dynamixel: service communication 
     	bool dynamixelCommandMsg(std::string command, uint8_t id, std::string addr_name, int32_t value);
+		double DYNAMIXEL_GOAL_VELOCITY_;
 
 		// dobot mg400: service communication 
 		bool dobotPayloadCommandMsg(float weight, float inertia);
@@ -54,6 +55,10 @@ class FbControl : public CommonProc
 		void publishVec4fData(cv::Vec4f vecs);
 		void intCb(const std_msgs::Int32::ConstPtr& msg);
 		int control_fin_ = 0;
+		double DOBOT_X_ = 0.0;
+		double DOBOT_Y_ = 0.0;
+		double DOBOT_Z_ = 0.0;
+		double DOBOT_R_ = 0.0;
 
 		/*--- detect object by using background subtraction ---*/
 		bool objectDetection();
@@ -93,12 +98,12 @@ class FbControl : public CommonProc
 		std::vector<cv::Point2f> point_optflow_2d_prev_;
 		std::vector<cv::Point3f> point_optflow_3d_prev_;
 		double deformation_total_3d_ = 0.0;
-		int DEFORMATION_TH_ = 50;
+		int DEFORMATION_TH_;
 
 		// IfG4
 		bool handOcclusionDetection();
 		double hand_area_init_ = 0.0;
-		int OCCLUSION_TH_ = 150;
+		int OCCLUSION_TH_;
 
 		/*--- drop detection ---*/
 		bool dropDetection();

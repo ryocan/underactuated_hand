@@ -74,8 +74,8 @@ bool FbControl::dropDetection()
 	{
 		ROS_INFO("REGRASPING");
 
-		dynamixelCommandMsg("", 1, "Goal_Velocity", 10);
-		dynamixelCommandMsg("", 2, "Goal_Velocity", 10);
+		dynamixelCommandMsg("", 1, "Goal_Velocity", DYNAMIXEL_GOAL_VELOCITY_);
+		dynamixelCommandMsg("", 2, "Goal_Velocity", DYNAMIXEL_GOAL_VELOCITY_);
 		sleep(time_grasp);
 
 		dynamixelCommandMsg("", 1, "Goal_Velocity", 0);
@@ -103,7 +103,7 @@ bool FbControl::dropDetection()
 		flag_entire_process_ = 7;
 		return true;
 	}
-	else if(count_ < 320)
+	else if(count_ < 310)
 	{
 		flag_entire_process_ = 6;
 		count_++;

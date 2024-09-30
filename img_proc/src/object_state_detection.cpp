@@ -49,8 +49,6 @@ bool FbControl::handMoveDetection()
 	if (!centroid_hand_prev_.empty())
     {
         // calculate hand movement
-        // double hand_r_shift = std::pow((centroid_hand_prev_[0].x - centroid_hand_[0].x), 2) + pow((centroid_hand_prev_[0].y - centroid_hand_[0].y), 2);
-        // double hand_l_shift = std::pow((centroid_hand_prev_[1].x - centroid_hand_[1].x), 2) + pow((centroid_hand_prev_[1].y - centroid_hand_[1].y), 2);
         double hand_r_shift = (centroid_hand_prev_[0].x - centroid_hand_[0].x) + (centroid_hand_prev_[0].y - centroid_hand_[0].y);
         double hand_l_shift = (centroid_hand_prev_[1].x - centroid_hand_[1].x) + (centroid_hand_prev_[1].y - centroid_hand_[1].y);
 

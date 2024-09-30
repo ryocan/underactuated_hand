@@ -1,24 +1,22 @@
 # dynamixel goal velocity
-GOAL_VELOCITY: 10
-
-# deformation
-DEFORMATION_TH: 5.0
-
-# deformation
-OCCLUSION_TH: 4.0
+DYNAMIXEL_GOAL_VELOCITY_: 5
 
 # hsv param: hand
-H_MIN_HAND: 98
-H_MAX_HAND: 179
-S_MIN_HAND: 0
-S_MAX_HAND: 255
-V_MIN_HAND: 125
-V_MAX_HAND: 255
+H_MIN_HAND_:  90
+H_MAX_HAND_: 150
+S_MIN_HAND_:  50
+S_MAX_HAND_: 255
+V_MIN_HAND_:  50
+V_MAX_HAND_: 255
 
-# hsv param: obj
-H_MIN_OBJ: 0
-H_MAX_OBJ: 100
-S_MIN_OBJ: 100
-S_MAX_OBJ: 255
-V_MIN_OBJ: 100
-V_MAX_OBJ: 255
+# dobot current position
+DOBOT_X_: 318.0
+DOBOT_Y_: -7.7
+DOBOT_Z_: -18.3
+DOBOT_R_: -31.4
+
+# deformation
+DEFORMATION_TH_: 50
+
+# deformation
+OCCLUSION_TH_: 150
